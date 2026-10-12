@@ -1,0 +1,66 @@
+name: Sync Worlds data
+
+on:
+  schedule:
+    # Every 20 minutes during Worlds 2026 (Play-In Oct 15 → Final Nov 14).
+    - cron: '*/20 * 13-31 10 *'
+    - cron: '*/20 * 1-15 11 *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Data source'
+        type: choice
+        options: [all, leaguepedia, lolesports]
+        default: all
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sync-data
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Fetch & merge upstream data
+        env:
+          # Optional: enables live IN_PROGRESS states from the LoL Esports API.
+          LOLESPORTS_API_KEY: ${{ secrets.LOLESPORTS_API_KEY }}
+        run: node scripts/sync_worlds.mjs --source=${{ inputs.source || 'all' }}
+
+      - name: Validate against schema
+        run: npm run validate
+
+      - name: Commit changes
+        id: commit
+        run: |
+          if git diff --quiet -- public/data; then
+            echo "No data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data
+          git commit -m "chore(data): sync Worlds 2026 data [skip ci]"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # Pushes made with GITHUB_TOKEN (and [skip ci]) don't trigger other
+      # workflows, so dispatch the Pages deploy explicitly.
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref "${GITHUB_REF_NAME}"

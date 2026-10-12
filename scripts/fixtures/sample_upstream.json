@@ -1,0 +1,5 @@
+[
+  { "source": "fixture", "stage": "PLAY_IN", "roundHint": "Round 1", "teamA": "MVK", "teamB": "FUR", "scoreA": 1, "scoreB": 3, "winner": "FUR", "status": "FINISHED", "bestOf": 5, "startTime": "2026-10-15T20:00:00Z", "externalId": "lp:fixture-1" },
+  { "source": "fixture", "stage": "PLAY_IN", "roundHint": "Round 1", "teamA": "C9", "teamB": "KC", "scoreA": 1, "scoreB": 2, "winner": null, "status": "IN_PROGRESS", "bestOf": 5, "startTime": "2026-10-16T20:00:00Z", "externalId": "lp:fixture-2" },
+  { "source": "fixture", "stage": "SWISS", "roundHint": "Round 1", "teamA": "GEN", "teamB": "CFO", "scoreA": null, "scoreB": null, "winner": null, "status": "SCHEDULED", "bestOf": 1, "startTime": "2026-10-23T19:00:00Z", "externalId": "lp:fixture-3" }
+]

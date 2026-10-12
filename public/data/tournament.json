@@ -1,0 +1,259 @@
+{
+  "$schema": "./schema.json",
+  "schemaVersion": 1,
+  "lastUpdated": "2026-10-12T00:00:00Z",
+  "event": {
+    "name": "League of Legends World Championship 2026",
+    "shortName": "Worlds 2026",
+    "stages": [
+      {
+        "id": "PLAY_IN",
+        "name": "Play-In",
+        "start": "2026-10-15",
+        "end": "2026-10-18",
+        "venue": "Riot Games Arena, Los Angeles"
+      },
+      {
+        "id": "SWISS",
+        "name": "Swiss Stage",
+        "start": "2026-10-23",
+        "end": "2026-10-31",
+        "venue": "Credit Union of Texas Event Center, Allen (TX)"
+      },
+      {
+        "id": "KNOCKOUT",
+        "name": "Knockout Stage",
+        "start": "2026-11-03",
+        "end": "2026-11-14",
+        "venue": "Allen (TX) · Final: Barclays Center, Brooklyn (NY)"
+      }
+    ]
+  },
+  "playIn": {
+    "matches": [
+      {
+        "id": "PI-A",
+        "stage": "PLAY_IN",
+        "round": "Round 1",
+        "label": "Opening Match A",
+        "teamA": "FUR",
+        "teamB": "MVK",
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-10-15T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "PI-B",
+        "stage": "PLAY_IN",
+        "round": "Round 1",
+        "label": "Opening Match B",
+        "teamA": "C9",
+        "teamB": "KC",
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-10-16T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "PI-C",
+        "stage": "PLAY_IN",
+        "round": "Round 2",
+        "label": "Upper Bracket Final",
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-10-17T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "PI-D",
+        "stage": "PLAY_IN",
+        "round": "Round 2",
+        "label": "Lower Bracket Round 1",
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-10-17T23:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "PI-E",
+        "stage": "PLAY_IN",
+        "round": "Round 3",
+        "label": "Lower Bracket Final",
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-10-18T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "PI-F",
+        "stage": "PLAY_IN",
+        "round": "Round 4",
+        "label": "Qualification Final",
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-10-18T23:00:00Z",
+        "externalId": null
+      }
+    ]
+  },
+  "swiss": {
+    "rounds": [
+      {
+        "round": 1,
+        "matches": []
+      },
+      {
+        "round": 2,
+        "matches": []
+      },
+      {
+        "round": 3,
+        "matches": []
+      },
+      {
+        "round": 4,
+        "matches": []
+      },
+      {
+        "round": 5,
+        "matches": []
+      }
+    ]
+  },
+  "knockout": {
+    "matches": [
+      {
+        "id": "QF1",
+        "stage": "KNOCKOUT",
+        "round": "Quarterfinals",
+        "label": null,
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-11-03T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "QF2",
+        "stage": "KNOCKOUT",
+        "round": "Quarterfinals",
+        "label": null,
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-11-04T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "QF3",
+        "stage": "KNOCKOUT",
+        "round": "Quarterfinals",
+        "label": null,
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-11-05T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "QF4",
+        "stage": "KNOCKOUT",
+        "round": "Quarterfinals",
+        "label": null,
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-11-06T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "SF1",
+        "stage": "KNOCKOUT",
+        "round": "Semifinals",
+        "label": null,
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-11-07T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "SF2",
+        "stage": "KNOCKOUT",
+        "round": "Semifinals",
+        "label": null,
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-11-08T20:00:00Z",
+        "externalId": null
+      },
+      {
+        "id": "F",
+        "stage": "KNOCKOUT",
+        "round": "Final",
+        "label": null,
+        "teamA": null,
+        "teamB": null,
+        "bestOf": 5,
+        "status": "SCHEDULED",
+        "scoreA": 0,
+        "scoreB": 0,
+        "winner": null,
+        "startTime": "2026-11-14T20:00:00Z",
+        "externalId": null
+      }
+    ]
+  }
+}
