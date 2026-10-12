@@ -39,6 +39,7 @@ const LOLESPORTS_PUBLIC_KEY = '0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z';
 
 const warn = (msg) => console.log(process.env.GITHUB_ACTIONS ? `::warning::${msg}` : `⚠ ${msg}`);
 const info = (msg) => console.log(msg);
+const notice = (msg) => console.log(process.env.GITHUB_ACTIONS ? `::notice::${msg}` : `ℹ ${msg}`);
 
 async function fetchJson(url, init = {}, { retries = 3, timeoutMs = 20000 } = {}) {
   let lastErr;
@@ -188,25 +189,27 @@ async function main() {
     upstream.push(...JSON.parse(fs.readFileSync(path.resolve(String(args.fixture)), 'utf8')));
     info(`Loaded ${upstream.length} upstream records from fixture`);
   } else {
+    // Each source is independent: a failure only matters if every source fails.
+    const sources = [];
     if (SOURCE === 'all' || SOURCE === 'leaguepedia') {
-      try {
-        const rows = await fetchLeaguepedia(resolve);
-        info(`Leaguepedia: ${rows.length} matches`);
-        upstream.push(...rows);
-      } catch (err) {
-        warn(`Leaguepedia unavailable: ${err.message}`);
-      }
+      sources.push(['Leaguepedia', () => fetchLeaguepedia(resolve)]);
     }
     const key = process.env.LOLESPORTS_API_KEY || LOLESPORTS_PUBLIC_KEY;
     if ((SOURCE === 'all' || SOURCE === 'lolesports') && key) {
+      sources.push(['LoL Esports', () => fetchLolEsports(resolve, key)]);
+    }
+    const failures = [];
+    for (const [name, fetchSource] of sources) {
       try {
-        const rows = await fetchLolEsports(resolve, key);
-        info(`LoL Esports: ${rows.length} matches`);
+        const rows = await fetchSource();
+        info(`${name}: ${rows.length} matches`);
         upstream.push(...rows);
       } catch (err) {
-        warn(`LoL Esports unavailable: ${err.message}`);
+        failures.push(`${name} unavailable: ${err.message}`);
       }
     }
+    const allFailed = failures.length === sources.length;
+    for (const f of failures) (allFailed ? warn : notice)(allFailed ? f : `${f} (other sources OK)`);
   }
 
   if (upstream.length === 0) {
