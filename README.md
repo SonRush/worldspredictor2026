@@ -15,6 +15,8 @@ SPA estática (Vite + TypeScript + Tailwind) que sigue, simula y predice el **Le
 
 Los escudos son los logos oficiales de cada equipo (`public/logos/<ID>.webp`, tomados de LoL Esports); si uno no carga, se muestra el hexágono con el código. El botón ☀/🌙 de la cabecera alterna tema claro y oscuro: respeta tu sistema por defecto y recuerda tu elección.
 
+Al pulsar **Simular torneo**, además de las probabilidades, las vistas muestran un *escenario simulado* (una corrida concreta con esa semilla), con botones para ver otro o volver a los favoritos. El Play-In y los cuartos/semis/final muestran quién gana más veces cada serie (`Sim`), y el Swiss añade una tabla con el récord final de cada equipo.
+
 Los picks y preferencias se guardan en `localStorage` del navegador. Los datos se vuelven a pedir cada 5 minutos.
 
 ## Formato implementado (oficial Worlds 2026)

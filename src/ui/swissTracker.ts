@@ -1,6 +1,6 @@
 import type { ResolvedMatch, ResolvedTournament } from '../types.ts';
 import { store } from '../state.ts';
-import { crest, esc, matchCard, team } from './dom.ts';
+import { crest, esc, matchCard, pct, scenarioBanner, team } from './dom.ts';
 import { renderSimPanel } from './simPanel.ts';
 
 function playInSection(r: ResolvedTournament): string {
@@ -20,11 +20,67 @@ function playInSection(r: ResolvedTournament): string {
       </div>
       ${q ? `<div class="flex items-center gap-2 text-sm">${crest(q.id)}<span>Clasifica: <b class="text-gold-300">${esc(q.name)}</b></span></div>` : ''}
     </header>
+    ${playInOdds()}
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       ${col('Ronda 1', ['PI-A', 'PI-B'])}
       ${col('Ronda 2', ['PI-C', 'PI-D'])}
       ${col('Ronda 3', ['PI-E'])}
       ${col('Final de clasificación', ['PI-F'])}
+    </div>
+  </section>`;
+}
+
+/** Monte Carlo: chance each Play-In team has to reach the Swiss Stage. */
+function playInOdds(): string {
+  const mc = store.mc;
+  if (!mc) return '';
+  const teams = store.teams.filter((t) => t.stageEntry === 'PLAY_IN');
+  const rows = teams.map((t) => ({ t, p: mc.odds[t.id]?.swiss ?? 0 })).sort((a, b) => b.p - a.p);
+  return `<div class="mb-4 flex flex-wrap items-center gap-2 text-xs">
+    <span class="text-hex-500 uppercase tracking-wider text-[10px]">Simulación · clasifica al Swiss</span>
+    ${rows
+      .map(
+        ({ t, p }) => `<span class="stat-tile !p-1.5 !gap-2">${crest(t.id, 'w-6 h-6 text-[8px]')}<span>${esc(t.code)}</span><b class="font-display text-gold-300 tabular-nums">${pct(p, 0)}</b></span>`,
+      )
+      .join('')}
+  </div>`;
+}
+
+const RECORD_COLS = ['3-0', '3-1', '3-2', '2-3', '1-3', '0-3'];
+
+/** Monte Carlo: distribution of each team's final Swiss record (heat table). */
+function swissOddsTable(): string {
+  const mc = store.mc;
+  if (!mc) return '';
+  const rows = Object.values(mc.odds)
+    .filter((o) => o.swiss > 0)
+    .sort((a, b) => b.playoffs - a.playoffs || b.swiss - a.swiss);
+  const cell = (v: number | undefined, good: boolean) => {
+    const x = v ?? 0;
+    const a = Math.min(0.85, x * 1.6).toFixed(2);
+    const rgb = good ? 'var(--cyan-neon)' : 'var(--loss)';
+    return `<td class="heat" style="background:rgb(${rgb} / ${a})" title="${pct(x)}">${x >= 0.005 ? pct(x, 0) : '·'}</td>`;
+  };
+  return `
+  <section class="panel">
+    <header class="panel-head">
+      <div>
+        <h3 class="panel-title">Resultado final del Swiss (Monte Carlo)</h3>
+        <p class="panel-sub">${mc.iterations.toLocaleString()} simulaciones: con qué récord termina cada equipo. 3-x = clasifica a playoffs, x-3 = eliminado.</p>
+      </div>
+    </header>
+    <div class="table-wrap">
+      <table class="rank-table heat-table">
+        <thead><tr><th class="text-left">Equipo</th>${RECORD_COLS.map((c) => `<th>${c}</th>`).join('')}<th>Playoffs</th></tr></thead>
+        <tbody>${rows
+          .map(
+            (o) => `<tr>
+            <td class="text-left"><div class="flex items-center gap-2">${crest(o.team, 'w-6 h-6 text-[8px]')}<span class="truncate">${esc(team(o.team)?.name)}</span>${o.swiss < 0.995 ? `<span class="text-[10px] text-hex-500">(entra ${pct(o.swiss, 0)})</span>` : ''}</div></td>
+            ${RECORD_COLS.map((c) => cell(o.records[c], c.startsWith('3'))).join('')}
+            <td class="font-display text-gold-300 tabular-nums">${pct(o.playoffs, 0)}</td></tr>`,
+          )
+          .join('')}</tbody>
+      </table>
     </div>
   </section>`;
 }
@@ -118,6 +174,7 @@ export function renderSwiss(el: HTMLElement) {
   el.innerHTML = `
     <div class="flex flex-col gap-6">
       ${renderSimPanel()}
+      ${scenarioBanner()}
       ${playInSection(r)}
       <section class="panel">
         <header class="panel-head">
@@ -140,5 +197,6 @@ export function renderSwiss(el: HTMLElement) {
           ${outcomeColumn(r)}
         </div>
       </section>
+      ${swissOddsTable()}
     </div>`;
 }

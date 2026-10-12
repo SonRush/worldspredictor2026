@@ -85,7 +85,7 @@ function getWorker(): Worker | null {
 /** Auto-runs (page load / data refresh) are capped so they stay instant. */
 const AUTO_MC_MAX = 10000;
 
-function runMc(iterations = store.prefs.mcIterations) {
+function runMc(iterations = store.prefs.mcIterations, showScenario = false) {
   if (store.mcRunning) return;
   store.setMc(store.mc, true);
   const input: MonteCarloInput = {
@@ -95,16 +95,18 @@ function runMc(iterations = store.prefs.mcIterations) {
     iterations,
     overrides: store.prefs.mcUseOverrides ? store.overrides : undefined,
   };
+  // A manual run also paints one concrete simulated run (the MC seed) on every view.
+  const finish = (res: MonteCarloResult) => store.setMc(res, false, showScenario ? res.seed : undefined);
   const w = getWorker();
   if (!w) {
     // Fallback: run on the main thread (yield first so the UI shows "Simulando…").
-    setTimeout(() => store.setMc(runMonteCarlo(input), false), 20);
+    setTimeout(() => finish(runMonteCarlo(input)), 20);
     return;
   }
-  w.onmessage = (e: MessageEvent<MonteCarloResult>) => store.setMc(e.data, false);
+  w.onmessage = (e: MessageEvent<MonteCarloResult>) => finish(e.data);
   w.onerror = () => {
     worker = null;
-    store.setMc(runMonteCarlo(input), false);
+    finish(runMonteCarlo(input));
   };
   w.postMessage(JSON.parse(JSON.stringify(input)));
 }
@@ -157,7 +159,13 @@ document.addEventListener('click', (e) => {
       void refresh(true);
       break;
     case 'run-mc':
-      runMc();
+      runMc(store.prefs.mcIterations, true);
+      break;
+    case 'new-scenario':
+      store.setScenario(Math.floor(Math.random() * 2 ** 31));
+      break;
+    case 'clear-scenario':
+      store.setScenario(null);
       break;
     case 'h2h-swap': {
       const { a, b, bestOf } = store.prefs.h2h;
@@ -176,6 +184,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('change', (e) => {
   const el = e.target as HTMLInputElement | HTMLSelectElement;
   if (el.dataset.action === 'toggle-projection') {
+    store.scenarioSeed = null;
     store.setPrefs({ showProjection: (el as HTMLInputElement).checked });
   } else if (el.dataset.h2h) {
     const h2h = { ...store.prefs.h2h, [el.dataset.h2h]: el.value };

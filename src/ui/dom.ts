@@ -94,6 +94,23 @@ export function matchCard(m: ResolvedMatch, opts: { compact?: boolean; title?: s
     ${row(m.teamB, m.scoreB, p == null ? null : 1 - p)}
     ${scorePicker(m)}
     ${p != null ? `<div class="prob-bar" title="Probabilidad de serie"><span style="width:${(p * 100).toFixed(1)}%"></span></div>` : ''}
+    ${slotOddsFooter(m.id)}
+  </div>`;
+}
+
+/** Monte Carlo: who most often wins this bracket slot (Play-In / Knockout only). */
+function slotOddsFooter(matchId: string): string {
+  const slot = store.mc?.slots[matchId];
+  if (!slot) return '';
+  const top = Object.entries(slot)
+    .filter(([, o]) => o.won >= 0.005)
+    .sort((a, b) => b[1].won - a[1].won)
+    .slice(0, 3);
+  if (!top.length) return '';
+  return `<div class="slot-odds" title="Monte Carlo: probabilidad de ganar esta serie (sobre todas las simulaciones)">
+    <span class="slot-odds-label">Sim</span>${top
+      .map(([id, o]) => `<span class="slot-odds-item">${esc(team(id)?.code ?? id)} <b>${pct(o.won, 0)}</b></span>`)
+      .join('')}
   </div>`;
 }
 
@@ -114,5 +131,17 @@ function scorePicker(m: ResolvedMatch): string {
   }).join('');
   return `<div class="score-picker" title="${custom ? 'Marcador elegido por ti' : 'Automático: el marcador más probable para este ganador según el Elo de ambos equipos'}">
     <span>${esc(team(m.winner)?.code)} gana</span>${options}${custom ? '' : '<em>auto</em>'}
+  </div>`;
+}
+
+/** Banner shown on every view while a concrete simulated run is displayed. */
+export function scenarioBanner(): string {
+  if (store.scenarioSeed == null) return '';
+  return `<div class="notice flex flex-wrap items-center gap-x-3 gap-y-1">
+    <span>🎲 Estás viendo <b>un escenario simulado</b> (seed ${store.scenarioSeed}): oficial + tus picks + un resultado aleatorio ponderado por Elo para lo que falta.</span>
+    <span class="ml-auto flex gap-2">
+      <button class="btn-ghost" data-action="new-scenario">Otro escenario</button>
+      <button class="btn-ghost" data-action="clear-scenario">Volver a favoritos</button>
+    </span>
   </div>`;
 }

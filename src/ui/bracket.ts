@@ -1,6 +1,7 @@
 import type { ResolvedMatch } from '../types.ts';
 import { store } from '../state.ts';
-import { crest, esc, matchCard, pct, team } from './dom.ts';
+import { crest, esc, matchCard, pct, scenarioBanner, team } from './dom.ts';
+import { mcControls } from './simPanel.ts';
 
 export function renderBracket(el: HTMLElement) {
   const r = store.resolved(true);
@@ -24,7 +25,8 @@ export function renderBracket(el: HTMLElement) {
       </div>
       ${picks ? `<button class="btn-ghost text-xs" data-action="clear-picks" data-prefix="QF,SF,F">Borrar picks (${picks})</button>` : ''}
     </header>
-    ${projected ? `<p class="notice">Cuadro proyectado: resultados oficiales + tus picks + favoritos por Elo para lo que falta. Haz click en un equipo para forzar su victoria; el cuadro se recalcula.</p>` : ''}
+    ${scenarioBanner()}
+    ${projected && store.scenarioSeed == null ? `<p class="notice">Cuadro proyectado: resultados oficiales + tus picks + favoritos por Elo para lo que falta. Haz click en un equipo para forzar su victoria; el cuadro se recalcula.</p>` : ''}
     <div class="bracket">
       <div class="bracket-col"><h4 class="col-title">Cuartos</h4>${card('QF1', 'QF1')}${card('QF2', 'QF2')}<div class="h-2"></div>${card('QF3', 'QF3')}${card('QF4', 'QF4')}</div>
       <div class="bracket-col justify-around"><h4 class="col-title">Semifinales</h4>${card('SF1', 'SF1')}${card('SF2', 'SF2')}</div>
@@ -38,7 +40,7 @@ export function renderBracket(el: HTMLElement) {
   </section>
   <section class="panel mt-6">
     <header class="panel-head"><div><h3 class="panel-title">Favoritos al título (Monte Carlo)</h3>
-    <p class="panel-sub">${mc ? `${mc.iterations.toLocaleString()} simulaciones del resto del torneo desde el estado real.` : store.mcRunning ? 'Simulando…' : 'Ejecuta la simulación en Power Rankings.'}</p></div></header>
+    <p class="panel-sub">${mc ? `${mc.iterations.toLocaleString()} simulaciones del resto del torneo desde el estado real.` : store.mcRunning ? 'Simulando…' : 'Aún no hay simulación.'}</p></div>${mcControls()}</header>
     <div class="grid gap-2 sm:grid-cols-5">
       ${favourites
         .map(

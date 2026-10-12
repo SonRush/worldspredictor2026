@@ -49,6 +49,8 @@ class Store {
   });
   mc: MonteCarloResult | null = null;
   mcRunning = false;
+  /** When set, views show one random full run (this seed) instead of the favourites projection. */
+  scenarioSeed: number | null = null;
   private listeners: Listener[] = [];
   private cache = new Map<string, ResolvedTournament>();
 
@@ -64,14 +66,15 @@ class Store {
 
   /** Official + overrides, optionally completed with the favourites projection. */
   resolved(projection: boolean): ResolvedTournament {
-    const key = projection ? 'favorite' : 'none';
+    const scenario = this.scenarioSeed;
+    const key = scenario != null ? `random:${scenario}` : projection ? 'favorite' : 'none';
     let r = this.cache.get(key);
     if (!r) {
       r = resolveTournament(this.teams, this.tournament, {
         ratings: this.ratings,
         overrides: this.overrides,
-        mode: projection ? 'favorite' : 'none',
-        rng: mulberry32(PROJECTION_SEED),
+        mode: scenario != null ? 'random' : projection ? 'favorite' : 'none',
+        rng: mulberry32(scenario ?? PROJECTION_SEED),
       });
       this.cache.set(key, r);
     }
@@ -110,9 +113,16 @@ class Store {
     this.emit();
   }
 
-  setMc(result: MonteCarloResult | null, running: boolean) {
+  setMc(result: MonteCarloResult | null, running: boolean, scenarioSeed?: number) {
     this.mc = result;
     this.mcRunning = running;
+    if (scenarioSeed !== undefined) this.scenarioSeed = scenarioSeed;
+    this.emit();
+  }
+
+  /** Shows one concrete random run (null = back to the favourites projection). */
+  setScenario(seed: number | null) {
+    this.scenarioSeed = seed;
     this.emit();
   }
 

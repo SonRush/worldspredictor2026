@@ -209,3 +209,10 @@
   .form-chip.is-w { @apply bg-cyan-neon/20 text-cyan-neon; }
   .form-chip.is-l { @apply bg-loss/20 text-loss; }
 }
+
+@layer components {
+  .slot-odds { @apply flex flex-wrap items-center gap-x-2 border-t border-hex-700 px-2 py-1 text-[10px] text-hex-500; }
+  .slot-odds-label { @apply rounded-sm bg-cyan-neon/15 px-1 font-bold uppercase tracking-wider text-cyan-neon; }
+  .slot-odds-item b { @apply font-semibold tabular-nums text-gold-300; }
+  .heat-table td.heat { @apply text-center text-xs tabular-nums text-gold-100; }
+}

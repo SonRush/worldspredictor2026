@@ -16,8 +16,18 @@ export interface TeamOdds {
   records: Record<string, number>;
 }
 
+/** Per-match odds for fixed bracket slots (Play-In and Knockout). */
+export interface SlotOdds {
+  /** P(team plays in this slot). */
+  played: number;
+  /** P(team wins this slot's series). */
+  won: number;
+}
+
 export interface MonteCarloResult {
   iterations: number;
+  /** matchId → teamId → odds, for Play-In (PI-*) and Knockout (QF*, SF*, F) matches. */
+  slots: Record<string, Record<string, SlotOdds>>;
   seed: number;
   odds: Record<string, TeamOdds>;
   elapsedMs: number;
@@ -41,6 +51,13 @@ export function runMonteCarlo(input: MonteCarloInput): MonteCarloResult {
   const rng = mulberry32(seed);
   const n = Math.max(1, Math.floor(input.iterations));
   const odds: Record<string, TeamOdds> = {};
+  const slots: Record<string, Record<string, SlotOdds>> = {};
+  const tally = (id: string, team: string | null, won: boolean) => {
+    if (!team) return;
+    const s = ((slots[id] ??= {})[team] ??= { played: 0, won: 0 });
+    s.played++;
+    if (won) s.won++;
+  };
   for (const t of input.teams) {
     odds[t.id] = { team: t.id, swiss: 0, playoffs: 0, semis: 0, final: 0, champion: 0, records: {} };
   }
@@ -51,6 +68,10 @@ export function runMonteCarlo(input: MonteCarloInput): MonteCarloResult {
       mode: 'random',
       rng,
     });
+    for (const m of [...r.playIn, ...r.knockout]) {
+      tally(m.id, m.teamA, m.winner === m.teamA);
+      tally(m.id, m.teamB, m.winner === m.teamB);
+    }
     for (const id of r.swissTeams) {
       const o = odds[id];
       if (!o) continue;
@@ -77,11 +98,18 @@ export function runMonteCarlo(input: MonteCarloInput): MonteCarloResult {
     o.champion /= n;
     for (const k of Object.keys(o.records)) o.records[k] /= n;
   }
+  for (const bySlot of Object.values(slots)) {
+    for (const s of Object.values(bySlot)) {
+      s.played /= n;
+      s.won /= n;
+    }
+  }
   const t1 = typeof performance !== 'undefined' ? performance.now() : Date.now();
   return {
     iterations: n,
     seed,
     odds,
+    slots,
     elapsedMs: t1 - t0,
     usedOverrides: !!input.overrides && Object.keys(input.overrides).length > 0,
   };
