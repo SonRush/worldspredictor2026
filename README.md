@@ -98,7 +98,7 @@ URL: `https://sonrush.github.io/worldspredictor2026/`. Con `base: './'` todas la
 
 ### Sync automático
 
-- `sync_data.yml` corre cada 20 minutos del 13 de octubre al 15 de noviembre, y también a mano con **Run workflow**.
+- `sync_data.yml` corre 5 veces al día (11:00, 14:00, 17:00, 20:00 y 23:00 hora CST de México = UTC-6) del 13 de octubre al 15 de noviembre, y también a mano con **Run workflow**. Cada ejecución puede retrasarse unos minutos por la cola de GitHub.
 - En cada ejecución: hace el fetch, el merge y la validación con `schema.json`. Si hay cambios, commitea `chore(data): … [skip ci]` y lanza `deploy.yml` con `gh workflow run`, porque los pushes hechos con `GITHUB_TOKEN` no disparan otros workflows.
 - LoL Esports usa por defecto la key pública del frontend de lolesports.com (no oficial). Si Riot la cambia: abre lolesports.com → F12 → Network → filtra `persisted/gw` → copia la cabecera `x-api-key` y guárdala como secret `LOLESPORTS_API_KEY`.
 - Los cron de GitHub se leen de la rama por defecto, pero el job siempre hace checkout y push sobre `main`, así que funciona sea cual sea la rama por defecto.

@@ -2,9 +2,13 @@ name: Sync Worlds data
 
 on:
   schedule:
-    # Every 20 minutes during Worlds 2026 (Play-In Oct 15 → Final Nov 14).
-    - cron: '*/20 * 13-31 10 *'
-    - cron: '*/20 * 1-15 11 *'
+    # 5 runs a day, 11:00 14:00 17:00 20:00 23:00 Mexico time (CST, UTC-6, no DST):
+    # 17:00 20:00 23:00 UTC the same day, 02:00 05:00 UTC the next day.
+    # Window: Play-In (Oct 15) -> Final (Nov 14).
+    - cron: '0 17,20,23 13-31 10 *'
+    - cron: '0 2,5 14-31 10 *'
+    - cron: '0 17,20,23 1-15 11 *'
+    - cron: '0 2,5 1-16 11 *'
   workflow_dispatch:
     inputs:
       source:
