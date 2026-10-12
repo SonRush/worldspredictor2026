@@ -1,6 +1,7 @@
 import type { ResolvedMatch, Team } from '../types.ts';
 import { store } from '../state.ts';
 import { pMap, seriesWinProb } from '../simulator.ts';
+import { LOGO_TONE } from '../logoTone.ts';
 
 export function esc(s: unknown): string {
   return String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
@@ -23,11 +24,18 @@ export function team(id: string | null): Team | undefined {
   return id ? store.teamsById.get(id) : undefined;
 }
 
-/** Small hexagonal team crest with the team code. */
+/** Hexagon with the team code: fallback when a logo is missing or fails to load. */
+export function codeCrest(code: string, color: string, size: string): string {
+  return `<span class="hex-crest ${size}" style="--crest:${color}" aria-hidden="true">${esc(code)}</span>`;
+}
+
+/** Team crest: official logo on a round plate ringed in the region color. */
 export function crest(id: string | null, size = 'w-8 h-8 text-[10px]'): string {
   const t = team(id);
-  const color = t ? REGION_COLORS[t.region] : '#3C3C41';
-  return `<span class="hex-crest ${size}" style="--crest:${color}" aria-hidden="true">${esc(t?.code ?? '?')}</span>`;
+  if (!t) return codeCrest('?', '#3C3C41', size);
+  const color = REGION_COLORS[t.region] ?? '#3C3C41';
+  const tone = LOGO_TONE[t.id] ? ` data-tone="${LOGO_TONE[t.id]}"` : '';
+  return `<span class="logo-crest ${size}" style="--crest:${color}"${tone} data-code="${esc(t.code)}"><img src="logos/${esc(t.id)}.webp" alt="${esc(t.name)}" width="40" height="40" loading="lazy" decoding="async" draggable="false"></span>`;
 }
 
 export function regionTag(region: string): string {

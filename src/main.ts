@@ -6,7 +6,8 @@ import { renderSwiss } from './ui/swissTracker.ts';
 import { renderBracket } from './ui/bracket.ts';
 import { renderH2H } from './ui/h2h.ts';
 import { renderRankings, setSort } from './ui/rankings.ts';
-import { esc } from './ui/dom.ts';
+import { codeCrest, esc } from './ui/dom.ts';
+import { initTheme } from './theme.ts';
 import type { BestOf } from './types.ts';
 
 const TABS = {
@@ -109,6 +110,22 @@ function runMc(iterations = store.prefs.mcIterations) {
 }
 
 // ------------------------------------------------------------ Events
+
+initTheme();
+
+// A logo that fails to load falls back to the code hexagon (error events don't bubble: capture).
+document.addEventListener(
+  'error',
+  (e) => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement)) return;
+    const wrap = img.closest<HTMLElement>('.logo-crest');
+    if (!wrap) return;
+    const size = [...wrap.classList].filter((c) => /^(w|h|text)-/.test(c)).join(' ');
+    wrap.outerHTML = codeCrest(wrap.dataset.code ?? '?', wrap.style.getPropertyValue('--crest'), size);
+  },
+  true,
+);
 
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;

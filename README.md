@@ -13,6 +13,8 @@ SPA estática (Vite + TypeScript + Tailwind) que sigue, simula y predice el **Le
 | **H2H Simulator** | Dos equipos cualesquiera + Bo1/Bo3/Bo5: % de victoria, distribución de marcadores, marcador más probable, factores determinantes y rosters. |
 | **Power Rankings** | Elo efectivo, Δ por resultados, series/mapas, forma y % de Swiss / Playoffs / Final / Campeón (Monte Carlo de 500 a 10 000 iteraciones en un Web Worker). |
 
+Los escudos son los logos oficiales de cada equipo (`public/logos/<ID>.webp`, tomados de LoL Esports); si uno no carga, se muestra el hexágono con el código. El botón ☀/🌙 de la cabecera alterna tema claro y oscuro: respeta tu sistema por defecto y recuerda tu elección.
+
 Los picks y preferencias se guardan en `localStorage` del navegador. Los datos se vuelven a pedir cada 5 minutos.
 
 ## Formato implementado (oficial Worlds 2026)
@@ -41,6 +43,7 @@ vite.config.ts              base: './' → rutas relativas en todos los assets
 public/data/teams.json      equipos, región, tier, Elo base, roster, alias
 public/data/tournament.json calendario, cruces, estado y marcadores
 public/data/schema.json     JSON Schema (draft 2020-12) de ambos ficheros
+public/logos/               logos de los equipos (WebP 160×160, nombre = id del equipo)
 src/simulator.ts            motor probabilístico (puro, sin DOM)
 src/tournament.ts           lógica de formato: Play-In, Swiss, Knockout
 src/montecarlo.ts           simulación global + mc.worker.ts

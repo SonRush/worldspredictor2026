@@ -3,26 +3,72 @@
 @tailwind utilities;
 
 @layer base {
-  html { color-scheme: dark; }
+  /* Theme palette: RGB channels, consumed by tailwind.config.js. Dark is the default. */
+  :root {
+    --hex-950: 1 10 19;
+    --hex-900: 9 20 40;
+    --hex-850: 10 20 40;
+    --hex-800: 30 35 40;
+    --hex-700: 30 40 45;
+    --hex-600: 60 60 65;
+    --hex-500: 128 126 120;
+    --gold-100: 240 230 210;
+    --gold-300: 200 170 110;
+    --gold-400: 200 155 60;
+    --gold-500: 120 90 40;
+    --gold-700: 70 55 20;
+    --cyan-neon: 10 200 185;
+    --cyan-deep: 0 90 130;
+    --cyan-light: 205 250 250;
+    --loss: 232 64 87;
+    --bg-glow-1: 0 90 130 / 0.25;
+    --bg-glow-2: 200 155 60 / 0.12;
+    --shadow-panel: 0 10px 30px rgb(0 0 0 / 0.35);
+    --plate-light: 236 230 215; /* backing for dark logos */
+    --plate-dark: 20 30 45; /* backing for white logos */
+    color-scheme: dark;
+  }
+  :root[data-theme='light'] {
+    --hex-950: 246 242 233;
+    --hex-900: 255 253 248;
+    --hex-850: 255 255 255;
+    --hex-800: 236 230 216;
+    --hex-700: 226 219 202;
+    --hex-600: 196 186 162;
+    --hex-500: 104 99 87;
+    --gold-100: 20 30 45;
+    --gold-300: 133 96 24;
+    --gold-400: 158 112 24;
+    --gold-500: 205 165 85;
+    --gold-700: 214 190 140;
+    --cyan-neon: 0 124 116;
+    --cyan-deep: 0 105 155;
+    --cyan-light: 0 60 85;
+    --loss: 196 38 62;
+    --bg-glow-1: 0 105 155 / 0.10;
+    --bg-glow-2: 200 155 60 / 0.16;
+    --shadow-panel: 0 8px 24px rgb(80 60 20 / 0.12);
+    color-scheme: light;
+  }
   body {
     background:
-      radial-gradient(1200px 600px at 10% -10%, rgba(0, 90, 130, 0.25), transparent 60%),
-      radial-gradient(900px 500px at 110% 0%, rgba(200, 155, 60, 0.12), transparent 60%),
-      #010a13;
+      radial-gradient(1200px 600px at 10% -10%, rgb(var(--bg-glow-1)), transparent 60%),
+      radial-gradient(900px 500px at 110% 0%, rgb(var(--bg-glow-2)), transparent 60%),
+      rgb(var(--hex-950));
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background-color 0.2s, color 0.2s;
   }
-  select, input { color-scheme: dark; }
 }
 
 @layer components {
   .site-header {
     @apply sticky top-0 z-20 border-b border-gold-700/60 bg-hex-950/90 backdrop-blur;
-    box-shadow: 0 1px 0 rgba(200, 170, 110, 0.15);
+    box-shadow: 0 1px 0 rgb(var(--gold-300) / 0.15);
   }
   .hex-logo {
     @apply block w-9 h-9 shrink-0;
-    background: linear-gradient(135deg, #c8aa6e, #785a28);
+    background: linear-gradient(135deg, rgb(var(--gold-300)), rgb(var(--gold-500)));
     clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
     position: relative;
   }
@@ -30,9 +76,9 @@
     content: '';
     position: absolute;
     inset: 5px;
-    background: #010a13;
+    background: rgb(var(--hex-950));
     clip-path: inherit;
-    box-shadow: inset 0 0 0 2px #0ac8b9;
+    box-shadow: inset 0 0 0 2px rgb(var(--cyan-neon));
   }
   .tabs { @apply flex gap-1 overflow-x-auto; scrollbar-width: none; }
   .tab {
@@ -43,12 +89,12 @@
 
   .panel {
     @apply relative rounded-sm border border-gold-700/50 bg-hex-900/70 p-4 md:p-5;
-    box-shadow: inset 0 0 0 1px rgba(1, 10, 19, 0.6), 0 10px 30px rgba(0, 0, 0, 0.35);
+    box-shadow: inset 0 0 0 1px rgb(var(--hex-950) / 0.6), var(--shadow-panel);
   }
   .panel::before {
     content: '';
     @apply absolute left-0 top-0 h-px w-full;
-    background: linear-gradient(90deg, transparent, #c8aa6e, transparent);
+    background: linear-gradient(90deg, transparent, rgb(var(--gold-300)), transparent);
   }
   .panel-head { @apply mb-4 flex flex-wrap items-start justify-between gap-3; }
   .panel-title { @apply font-display text-xl tracking-wider text-gold-300; }
@@ -65,6 +111,23 @@
     background: var(--crest);
     clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   }
+  /* Team logo: round plate ringed in the region color. */
+  .logo-crest {
+    @apply relative inline-flex shrink-0 items-center justify-center rounded-full;
+    background: radial-gradient(circle at 30% 25%, rgb(var(--gold-100) / 0.14), rgb(var(--gold-100) / 0.03));
+    box-shadow: 0 0 0 1.5px var(--crest), 0 2px 6px rgb(0 0 0 / 0.25);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .logo-crest img { @apply h-[78%] w-[78%] object-contain; filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.35)); }
+  .team-row:not(:disabled):hover .logo-crest, .stat-tile:hover .logo-crest { transform: scale(1.1); }
+  :root:not([data-theme='light']) .logo-crest[data-tone='dark'] { background: rgb(var(--plate-light)); }
+  :root[data-theme='light'] .logo-crest[data-tone='light'] { background: rgb(var(--plate-dark)); }
+  :root[data-theme='light'] .logo-crest { box-shadow: 0 0 0 1.5px var(--crest), 0 2px 6px rgb(80 60 20 / 0.18); }
+  .theme-toggle {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-full border border-gold-700 text-gold-300 transition-colors hover:border-gold-300 hover:text-gold-100;
+  }
+  .theme-toggle svg { @apply h-4 w-4; }
+  :root:not([data-theme='light']) .theme-toggle .i-moon, :root[data-theme='light'] .theme-toggle .i-sun { display: none; }
   .region-tag {
     @apply rounded-sm px-1 py-px text-[9px] font-bold tracking-wider;
     color: var(--rc);

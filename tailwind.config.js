@@ -1,40 +1,43 @@
 /** @type {import('tailwindcss').Config} */
+// Colors are CSS variables (RGB channels) so the light/dark themes live in styles.css.
+const v = (name) => `rgb(var(--${name}) / <alpha-value>)`;
+
 export default {
   content: ['./index.html', './src/**/*.ts'],
   theme: {
     extend: {
       colors: {
         hex: {
-          950: '#010A13',
-          900: '#091428',
-          850: '#0A1428',
-          800: '#1E2328',
-          700: '#1E282D',
-          600: '#3C3C41',
-          500: '#5B5A56',
+          950: v('hex-950'),
+          900: v('hex-900'),
+          850: v('hex-850'),
+          800: v('hex-800'),
+          700: v('hex-700'),
+          600: v('hex-600'),
+          500: v('hex-500'),
         },
         gold: {
-          100: '#F0E6D2',
-          300: '#C8AA6E',
-          400: '#C89B3C',
-          500: '#785A28',
-          700: '#463714',
+          100: v('gold-100'),
+          300: v('gold-300'),
+          400: v('gold-400'),
+          500: v('gold-500'),
+          700: v('gold-700'),
         },
         cyan: {
-          neon: '#0AC8B9',
-          deep: '#005A82',
-          light: '#CDFAFA',
+          neon: v('cyan-neon'),
+          deep: v('cyan-deep'),
+          light: v('cyan-light'),
         },
-        win: '#0AC8B9',
-        loss: '#E84057',
+        win: v('cyan-neon'),
+        loss: v('loss'),
       },
       fontFamily: {
         display: ['Beaufort', 'Cinzel', 'Georgia', 'serif'],
         sans: ['Spiegel', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        glow: '0 0 12px rgba(10, 200, 185, 0.45)',
-        gold: '0 0 10px rgba(200, 170, 110, 0.35)',
+        glow: '0 0 12px rgb(var(--cyan-neon) / 0.45)',
+        gold: '0 0 10px rgb(var(--gold-300) / 0.35)',
       },
     },
   },
