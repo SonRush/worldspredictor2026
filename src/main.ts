@@ -81,14 +81,17 @@ function getWorker(): Worker | null {
   return worker;
 }
 
-function runMc() {
+/** Auto-runs (page load / data refresh) are capped so they stay instant. */
+const AUTO_MC_MAX = 10000;
+
+function runMc(iterations = store.prefs.mcIterations) {
   if (store.mcRunning) return;
   store.setMc(store.mc, true);
   const input: MonteCarloInput = {
     teams: store.teams,
     tournament: store.tournament,
     ratings: store.ratings,
-    iterations: store.prefs.mcIterations,
+    iterations,
     overrides: store.prefs.mcUseOverrides ? store.overrides : undefined,
   };
   const w = getWorker();
@@ -184,7 +187,7 @@ async function refresh(manual = false) {
       teams.lastUpdated !== store.teamsFile.lastUpdated;
     if (changed || manual) {
       store.setData(teams, tournament);
-      runMc();
+      runMc(Math.min(store.prefs.mcIterations, AUTO_MC_MAX));
     }
   } catch (err) {
     console.error(err);

@@ -1,6 +1,7 @@
 import { store } from '../state.ts';
 import { K_FACTOR } from '../simulator.ts';
 import { crest, esc, pct, regionTag } from './dom.ts';
+import { mcControls, mcStatus } from './simPanel.ts';
 
 type SortKey = 'elo' | 'delta' | 'record' | 'swiss' | 'playoffs' | 'final' | 'champion' | 'name';
 let sortKey: SortKey = 'champion';
@@ -49,21 +50,14 @@ export function renderRankings(el: HTMLElement) {
     x == null
       ? '<span class="text-hex-500">—</span>'
       : `<div class="flex items-center gap-2 justify-end"><span class="tabular-nums">${pct(x)}</span><span class="hidden lg:block w-14 h-1.5 bg-hex-800"><span class="block h-full" style="width:${(x * 100).toFixed(1)}%;background:${color}"></span></span></div>`;
-  const iterOptions = [500, 1000, 5000, 10000]
-    .map((n) => `<option value="${n}" ${n === store.prefs.mcIterations ? 'selected' : ''}>${n.toLocaleString()}</option>`)
-    .join('');
   el.innerHTML = `
   <section class="panel">
     <header class="panel-head">
       <div><h3 class="panel-title">Power Rankings</h3>
       <p class="panel-sub">Elo efectivo = Elo base ajustado por resultados oficiales en Worlds 2026 (K=${K_FACTOR} por mapa) + peso regional + forma reciente. Probabilidades por Monte Carlo.</p></div>
-      <div class="flex flex-wrap items-center gap-2 text-xs">
-        <label class="field-inline">Simulaciones <select data-mc="iterations">${iterOptions}</select></label>
-        <label class="toggle"><input type="checkbox" data-mc="overrides" ${store.prefs.mcUseOverrides ? 'checked' : ''}><span>Incluir mis picks</span></label>
-        <button class="btn-gold" data-action="run-mc" ${store.mcRunning ? 'disabled' : ''}>${store.mcRunning ? 'Simulando…' : '▶ Ejecutar Monte Carlo'}</button>
-      </div>
+      ${mcControls()}
     </header>
-    ${mc ? `<p class="text-[11px] text-hex-500 mb-3">${mc.iterations.toLocaleString()} simulaciones · ${mc.elapsedMs.toFixed(0)} ms · seed ${mc.seed}</p>` : ''}
+    <p class="text-[11px] text-hex-500 mb-3">${esc(mcStatus())}</p>
     <div class="table-wrap">
       <table class="rank-table">
         <thead><tr>

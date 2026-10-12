@@ -1,6 +1,7 @@
 import type { ResolvedMatch, ResolvedTournament } from '../types.ts';
 import { store } from '../state.ts';
 import { crest, esc, matchCard, team } from './dom.ts';
+import { renderSimPanel } from './simPanel.ts';
 
 function playInSection(r: ResolvedTournament): string {
   const byId = new Map(r.playIn.map((m) => [m.id, m]));
@@ -116,6 +117,7 @@ export function renderSwiss(el: HTMLElement) {
   const picks = Object.keys(store.overrides).filter((k) => k.startsWith('SW-') || k.startsWith('PI-')).length;
   el.innerHTML = `
     <div class="flex flex-col gap-6">
+      ${renderSimPanel()}
       ${playInSection(r)}
       <section class="panel">
         <header class="panel-head">

@@ -21,6 +21,7 @@ export interface MonteCarloResult {
   seed: number;
   odds: Record<string, TeamOdds>;
   elapsedMs: number;
+  usedOverrides: boolean;
 }
 
 export interface MonteCarloInput {
@@ -77,5 +78,11 @@ export function runMonteCarlo(input: MonteCarloInput): MonteCarloResult {
     for (const k of Object.keys(o.records)) o.records[k] /= n;
   }
   const t1 = typeof performance !== 'undefined' ? performance.now() : Date.now();
-  return { iterations: n, seed, odds, elapsedMs: t1 - t0 };
+  return {
+    iterations: n,
+    seed,
+    odds,
+    elapsedMs: t1 - t0,
+    usedOverrides: !!input.overrides && Object.keys(input.overrides).length > 0,
+  };
 }
