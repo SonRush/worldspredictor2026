@@ -75,7 +75,7 @@ python3 -m http.server -d /tmp/pages 8080   # abre http://localhost:8080/worldsp
 ### Sincronización de datos
 
 ```bash
-npm run sync                                   # Leaguepedia (+ LoL Esports si hay LOLESPORTS_API_KEY)
+npm run sync                                   # Leaguepedia + LoL Esports
 node scripts/sync_worlds.mjs --dry-run         # muestra los cambios sin escribir nada
 node scripts/sync_worlds.mjs --fixture=scripts/fixtures/sample_upstream.json --dry-run
 ```
@@ -95,7 +95,7 @@ URL: `https://sonrush.github.io/worldspredictor2026/`. Con `base: './'` todas la
 
 - `sync_data.yml` corre cada 20 minutos del 13 de octubre al 15 de noviembre, y también a mano con **Run workflow**.
 - En cada ejecución: hace el fetch, el merge y la validación con `schema.json`. Si hay cambios, commitea `chore(data): … [skip ci]` y lanza `deploy.yml` con `gh workflow run`, porque los pushes hechos con `GITHUB_TOKEN` no disparan otros workflows.
-- Opcional: añade el secret `LOLESPORTS_API_KEY` (**Settings → Secrets and variables → Actions**) para tener estados en vivo desde la API de LoL Esports.
+- LoL Esports usa por defecto la key pública del frontend de lolesports.com (no oficial). Si Riot la cambia: abre lolesports.com → F12 → Network → filtra `persisted/gw` → copia la cabecera `x-api-key` y guárdala como secret `LOLESPORTS_API_KEY`.
 - Los cron de GitHub se leen de la rama por defecto, pero el job siempre hace checkout y push sobre `main`, así que funciona sea cual sea la rama por defecto.
 
 ## Datos iniciales

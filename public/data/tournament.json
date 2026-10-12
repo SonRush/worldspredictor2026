@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-10-12T00:00:00Z",
+  "lastUpdated": "2026-10-12T03:38:53Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -43,7 +43,7 @@
         "scoreA": 0,
         "scoreB": 0,
         "winner": null,
-        "startTime": "2026-10-15T20:00:00Z",
+        "startTime": "2026-10-15T18:00:00Z",
         "externalId": null
       },
       {
@@ -58,7 +58,7 @@
         "scoreA": 0,
         "scoreB": 0,
         "winner": null,
-        "startTime": "2026-10-16T20:00:00Z",
+        "startTime": "2026-10-15T23:00:00Z",
         "externalId": null
       },
       {

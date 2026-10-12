@@ -4,8 +4,8 @@
  *
  *   node scripts/sync_worlds.mjs [--dry-run] [--source=leaguepedia|lolesports|all] [--fixture=file.json]
  *
- * 1. Fetches match data from Leaguepedia's Cargo API (and, if LOLESPORTS_API_KEY
- *    is set, the LoL Esports schedule API for live IN_PROGRESS states).
+ * 1. Fetches match data from Leaguepedia's Cargo API and the LoL Esports
+ *    schedule API (live IN_PROGRESS states; key overridable via LOLESPORTS_API_KEY).
  * 2. Merges incrementally into public/data/tournament.json: only matches whose
  *    upstream state advanced are touched; pending/simulated data is kept.
  * 3. Validates the result against schema.json + semantic checks.
@@ -34,6 +34,8 @@ const LEAGUEPEDIA_API = process.env.LEAGUEPEDIA_API ?? 'https://lol.fandom.com/a
 const OVERVIEW_PREFIX = '2026 Season World Championship';
 const LOLESPORTS_API = process.env.LOLESPORTS_API ?? 'https://esports-api.lolesports.com/persisted/gw';
 const WORLDS_LEAGUE_ID = process.env.LOLESPORTS_LEAGUE_ID ?? '98767975604431411';
+// Public key embedded in the lolesports.com frontend (unofficial; override via env if it rotates).
+const LOLESPORTS_PUBLIC_KEY = '0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z';
 
 const warn = (msg) => console.log(process.env.GITHUB_ACTIONS ? `::warning::${msg}` : `⚠ ${msg}`);
 const info = (msg) => console.log(msg);
@@ -195,7 +197,7 @@ async function main() {
         warn(`Leaguepedia unavailable: ${err.message}`);
       }
     }
-    const key = process.env.LOLESPORTS_API_KEY;
+    const key = process.env.LOLESPORTS_API_KEY || LOLESPORTS_PUBLIC_KEY;
     if ((SOURCE === 'all' || SOURCE === 'lolesports') && key) {
       try {
         const rows = await fetchLolEsports(resolve, key);

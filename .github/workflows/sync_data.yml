@@ -38,7 +38,7 @@ jobs:
 
       - name: Fetch & merge upstream data
         env:
-          # Optional: enables live IN_PROGRESS states from the LoL Esports API.
+          # Optional override; the script falls back to the public lolesports.com key.
           LOLESPORTS_API_KEY: ${{ secrets.LOLESPORTS_API_KEY }}
         run: node scripts/sync_worlds.mjs --source=${{ inputs.source || 'all' }}
 
