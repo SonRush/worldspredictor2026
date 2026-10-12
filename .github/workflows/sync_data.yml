@@ -26,7 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # Always work on main, whatever the repository's default branch is.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -54,7 +57,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/data
           git commit -m "chore(data): sync Worlds 2026 data [skip ci]"
-          git push
+          git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       # Pushes made with GITHUB_TOKEN (and [skip ci]) don't trigger other
@@ -63,4 +66,4 @@ jobs:
         if: steps.commit.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run deploy.yml --ref "${GITHUB_REF_NAME}"
+        run: gh workflow run deploy.yml --ref main

@@ -87,19 +87,16 @@ Cómo funciona el script:
 
 ## Deploy en GitHub Pages
 
-1. Haz merge de la rama a `main`.
-2. En **Settings → Pages → Build and deployment → Source**, elige **GitHub Actions**.
-3. `deploy.yml` se ejecuta con cada push a `main` o a mano: instala, valida, pasa los tests, hace el build y publica `dist/`.
-4. Comprueba el deploy en **Actions → Deploy to GitHub Pages**. La URL aparece en el job `deploy` (`https://<usuario>.github.io/worldspredictor2026/`).
+`deploy.yml` corre en cada push a `main` (o manualmente): instala, valida, testea, compila y publica `dist/` en la rama **`gh-pages`**. GitHub activa Pages automáticamente al existir esa rama (Settings → Pages → *Deploy from a branch: gh-pages*), sin configuración manual.
 
-Como `base: './'` deja todas las URLs relativas (`./assets/…`, `./data/…`), la app funciona en cualquier sub-path sin afectar a otras páginas del mismo dominio.
+URL: `https://sonrush.github.io/worldspredictor2026/`. Con `base: './'` todas las URLs son relativas, así que no interfiere con otras páginas del dominio.
 
 ### Sync automático
 
 - `sync_data.yml` corre cada 20 minutos del 13 de octubre al 15 de noviembre, y también a mano con **Run workflow**.
 - En cada ejecución: hace el fetch, el merge y la validación con `schema.json`. Si hay cambios, commitea `chore(data): … [skip ci]` y lanza `deploy.yml` con `gh workflow run`, porque los pushes hechos con `GITHUB_TOKEN` no disparan otros workflows.
 - Opcional: añade el secret `LOLESPORTS_API_KEY` (**Settings → Secrets and variables → Actions**) para tener estados en vivo desde la API de LoL Esports.
-- Los cron de GitHub solo corren en la rama por defecto.
+- Los cron de GitHub se leen de la rama por defecto, pero el job siempre hace checkout y push sobre `main`, así que funciona sea cual sea la rama por defecto.
 
 ## Datos iniciales
 
