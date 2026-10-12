@@ -84,6 +84,27 @@ export function matchCard(m: ResolvedMatch, opts: { compact?: boolean; title?: s
     </div>
     ${row(m.teamA, m.scoreA, p)}
     ${row(m.teamB, m.scoreB, p == null ? null : 1 - p)}
+    ${scorePicker(m)}
     ${p != null ? `<div class="prob-bar" title="Probabilidad de serie"><span style="width:${(p * 100).toFixed(1)}%"></span></div>` : ''}
+  </div>`;
+}
+
+/**
+ * For a user pick in a Bo3/Bo5, lets the user choose the exact scoreline.
+ * Default (auto) score = most likely scoreline for that winner given both Elos.
+ */
+function scorePicker(m: ResolvedMatch): string {
+  if (m.source !== 'manual' || m.bestOf === 1 || !m.winner || !m.teamA || !m.teamB) return '';
+  const w = Math.ceil(m.bestOf / 2);
+  const aWins = m.winner === m.teamA;
+  const custom = store.overrides[m.id]?.scoreA != null;
+  const options = Array.from({ length: w }, (_, l) => {
+    const [sa, sb] = aWins ? [w, l] : [l, w];
+    const active = m.scoreA === sa && m.scoreB === sb;
+    return `<button type="button" class="score-opt ${active ? 'is-active' : ''}" data-score="${esc(m.id)}"
+      data-winner="${esc(m.winner)}" data-sa="${sa}" data-sb="${sb}">${w}-${l}</button>`;
+  }).join('');
+  return `<div class="score-picker" title="${custom ? 'Marcador elegido por ti' : 'Automático: el marcador más probable para este ganador según el Elo de ambos equipos'}">
+    <span>${esc(team(m.winner)?.code)} gana</span>${options}${custom ? '' : '<em>auto</em>'}
   </div>`;
 }

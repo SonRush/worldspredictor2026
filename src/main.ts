@@ -114,6 +114,12 @@ document.addEventListener('click', (e) => {
     store.togglePick(pick.dataset.pick!, pick.dataset.team);
     return;
   }
+  const score = target.closest<HTMLElement>('[data-score]');
+  if (score) {
+    const d = score.dataset;
+    store.setPickScore(d.score!, d.winner!, Number(d.sa), Number(d.sb));
+    return;
+  }
   const sort = target.closest<HTMLElement>('[data-sort]');
   if (sort) {
     setSort(sort.dataset.sort!);

@@ -87,6 +87,14 @@ class Store {
     this.emit();
   }
 
+  /** Sets the exact scoreline of an existing pick (winner implied by the score). */
+  setPickScore(matchId: string, winner: string, scoreA: number, scoreB: number) {
+    this.overrides[matchId] = { winner, scoreA, scoreB };
+    writeLocal(OVERRIDES_KEY, this.overrides);
+    this.cache.clear();
+    this.emit();
+  }
+
   clearPicks(prefix?: string) {
     for (const id of Object.keys(this.overrides)) {
       if (!prefix || id.startsWith(prefix)) delete this.overrides[id];

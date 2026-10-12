@@ -130,7 +130,7 @@ export function renderSwiss(el: HTMLElement) {
         </header>
         <p class="legend">
           <span><i class="dot bg-cyan-neon"></i>Oficial</span>
-          <span><i class="dot bg-gold-300"></i>Tu pick (click en un equipo)</span>
+          <span><i class="dot bg-gold-300"></i>Tu pick (click en un equipo; en Bo3/Bo5 eliges el marcador)</span>
           <span><i class="dot border border-dashed border-hex-500"></i>Emparejamiento simulado</span>
         </p>
         <div class="grid gap-4 md:grid-cols-3 xl:grid-cols-6">

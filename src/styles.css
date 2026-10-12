@@ -86,6 +86,10 @@
   .team-row.is-loser { @apply text-hex-500; }
   .team-row .score { @apply w-4 text-right font-display tabular-nums text-gold-300; }
   .team-row.is-loser .score { @apply text-hex-500; }
+  .score-picker { @apply flex flex-wrap items-center gap-1 border-t border-hex-700 px-2 py-1.5 text-[10px] text-hex-500; }
+  .score-picker em { @apply ml-auto not-italic uppercase tracking-wider text-hex-500; }
+  .score-opt { @apply rounded-sm border border-hex-600 px-1.5 py-0.5 font-semibold tabular-nums text-gold-100 hover:border-gold-300; }
+  .score-opt.is-active { @apply border-gold-300 bg-gold-300 text-hex-950; }
   .prob-bar { @apply h-1 bg-gold-500/60; }
   .prob-bar > span { @apply block h-full bg-cyan-neon/80; }
   .prob-bar.big { @apply h-2 rounded-sm; }
