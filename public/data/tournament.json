@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-10-13T21:47:49Z",
+  "lastUpdated": "2026-10-14T20:33:37Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -44,7 +44,7 @@
         "scoreB": 0,
         "winner": null,
         "startTime": "2026-10-15T23:00:00Z",
-        "externalId": null
+        "externalId": "lp:2026 Season World Championship/Play-In_Round 1_2"
       },
       {
         "id": "PI-B",
@@ -59,7 +59,7 @@
         "scoreB": 0,
         "winner": null,
         "startTime": "2026-10-15T18:00:00Z",
-        "externalId": null
+        "externalId": "lp:2026 Season World Championship/Play-In_Round 1_1"
       },
       {
         "id": "PI-C",
