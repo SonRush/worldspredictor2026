@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-10-16T01:09:38Z",
+  "lastUpdated": "2026-10-16T06:31:56Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -39,10 +39,10 @@
         "teamA": "FUR",
         "teamB": "MVK",
         "bestOf": 5,
-        "status": "IN_PROGRESS",
+        "status": "FINISHED",
         "scoreA": 0,
-        "scoreB": 2,
-        "winner": null,
+        "scoreB": 3,
+        "winner": "MVK",
         "startTime": "2026-10-15T23:00:00Z",
         "externalId": "lp:2026 Season World Championship/Play-In_Round 1_2"
       },
@@ -66,30 +66,30 @@
         "stage": "PLAY_IN",
         "round": "Round 2",
         "label": "Upper Bracket Final",
-        "teamA": null,
-        "teamB": null,
+        "teamA": "MVK",
+        "teamB": "KC",
         "bestOf": 5,
         "status": "SCHEDULED",
         "scoreA": 0,
         "scoreB": 0,
         "winner": null,
-        "startTime": "2026-10-17T20:00:00Z",
-        "externalId": null
+        "startTime": "2026-10-16T18:00:00Z",
+        "externalId": "lp:2026 Season World Championship/Play-In_Round 2_1"
       },
       {
         "id": "PI-D",
         "stage": "PLAY_IN",
         "round": "Round 2",
         "label": "Lower Bracket Round 1",
-        "teamA": null,
-        "teamB": null,
+        "teamA": "FUR",
+        "teamB": "C9",
         "bestOf": 5,
         "status": "SCHEDULED",
         "scoreA": 0,
         "scoreB": 0,
         "winner": null,
-        "startTime": "2026-10-17T23:00:00Z",
-        "externalId": null
+        "startTime": "2026-10-16T23:00:00Z",
+        "externalId": "lp:2026 Season World Championship/Play-In_Round 1_3"
       },
       {
         "id": "PI-E",
