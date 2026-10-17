@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-10-17T01:14:18Z",
+  "lastUpdated": "2026-10-17T22:11:09Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -40,10 +40,10 @@
         "teamB": "MVK",
         "bestOf": 5,
         "status": "FINISHED",
-        "scoreA": 0,
+        "scoreA": 1,
         "scoreB": 3,
         "winner": "MVK",
-        "startTime": "2026-10-15T23:00:00Z",
+        "startTime": "2026-10-17T18:00:00Z",
         "externalId": "lp:2026 Season World Championship/Play-In_Round 1_2"
       },
       {
