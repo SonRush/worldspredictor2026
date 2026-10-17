@@ -5,8 +5,8 @@ import { applyUpstream, mergeUpstream, teamResolver, toIsoUtc } from '../scripts
 // @ts-expect-error -- plain ESM JavaScript module without type declarations
 import { validateData } from '../scripts/validate.mjs';
 
-const teams = JSON.parse(fs.readFileSync('public/data/teams.json', 'utf8'));
-const tournament = JSON.parse(fs.readFileSync('public/data/tournament.json', 'utf8'));
+const teams = JSON.parse(fs.readFileSync('tests/fixtures/teams.initial.json', 'utf8'));
+const tournament = JSON.parse(fs.readFileSync('tests/fixtures/tournament.initial.json', 'utf8'));
 const fixture = JSON.parse(fs.readFileSync('scripts/fixtures/sample_upstream.json', 'utf8'));
 
 const up = (o: Record<string, unknown>) => ({

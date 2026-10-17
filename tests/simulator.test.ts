@@ -14,8 +14,8 @@ import { mulberry32 } from '../src/rng.ts';
 import { drawQuarterfinals, pairPool, resolveTournament, swissBestOf } from '../src/tournament.ts';
 import { runMonteCarlo } from '../src/montecarlo.ts';
 
-const teamsFile: TeamsFile = JSON.parse(fs.readFileSync('public/data/teams.json', 'utf8'));
-const tournament: TournamentFile = JSON.parse(fs.readFileSync('public/data/tournament.json', 'utf8'));
+const teamsFile: TeamsFile = JSON.parse(fs.readFileSync('tests/fixtures/teams.initial.json', 'utf8'));
+const tournament: TournamentFile = JSON.parse(fs.readFileSync('tests/fixtures/tournament.initial.json', 'utf8'));
 const teams = teamsFile.teams;
 const ratings = computeRatings(teams, []);
 const byId = new Map(teams.map((t) => [t.id, t]));
