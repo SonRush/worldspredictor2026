@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-10-18T19:22:34Z",
+  "lastUpdated": "2026-10-18T22:22:20Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -73,7 +73,7 @@
         "scoreA": 0,
         "scoreB": 3,
         "winner": "KC",
-        "startTime": "2026-10-16T18:00:00Z",
+        "startTime": "2026-10-18T18:00:00Z",
         "externalId": "lp:2026 Season World Championship/Play-In_Round 2_1"
       },
       {
@@ -127,7 +127,128 @@
     "rounds": [
       {
         "round": 1,
-        "matches": []
+        "matches": [
+          {
+            "id": "SW-R1-GEN-IG",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "GEN",
+            "teamB": "IG",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-23T17:00:00Z",
+            "externalId": "lp:2026 Season World Championship/Main Event_Round 1_1"
+          },
+          {
+            "id": "SW-R1-CFO-TL",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "TL",
+            "teamB": "CFO",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-23T18:00:00Z",
+            "externalId": "lp:2026 Season World Championship/Main Event_Round 1_2"
+          },
+          {
+            "id": "SW-R1-AL-KC",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "AL",
+            "teamB": "KC",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-23T19:00:00Z",
+            "externalId": "lp:2026 Season World Championship/Main Event_Round 1_3"
+          },
+          {
+            "id": "SW-R1-DK-G2",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "G2",
+            "teamB": "DK",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-23T20:00:00Z",
+            "externalId": "lp:2026 Season World Championship/Main Event_Round 1_4"
+          },
+          {
+            "id": "SW-R1-HLE-TES",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "HLE",
+            "teamB": "TES",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-23T21:00:00Z",
+            "externalId": "lp:2026 Season World Championship/Main Event_Round 1_5"
+          },
+          {
+            "id": "SW-R1-LOS-T1",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "LOS",
+            "teamB": "T1",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-23T22:00:00Z",
+            "externalId": null
+          },
+          {
+            "id": "SW-R1-LYON-TSW",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "TSW",
+            "teamB": "LYON",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-23T23:00:00Z",
+            "externalId": null
+          },
+          {
+            "id": "SW-R1-BLG-MKOI",
+            "stage": "SWISS",
+            "round": 1,
+            "label": null,
+            "teamA": "BLG",
+            "teamB": "MKOI",
+            "bestOf": 1,
+            "status": "SCHEDULED",
+            "scoreA": 0,
+            "scoreB": 0,
+            "winner": null,
+            "startTime": "2026-10-24T00:00:00Z",
+            "externalId": "lp:2026 Season World Championship/Main Event_Round 1_8"
+          }
+        ]
       },
       {
         "round": 2,
