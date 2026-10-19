@@ -48,5 +48,39 @@ export function renderBracket(el: HTMLElement) {
         )
         .join('')}
     </div>
+  </section>
+  ${championTable()}`;
+}
+
+/** Monte Carlo: how many of the N simulated tournaments each team won. */
+function championTable(): string {
+  const mc = store.mc;
+  if (!mc) return '';
+  const rows = Object.values(mc.odds)
+    .map((o) => ({ team: o.team, wins: Math.round(o.champion * mc.iterations), p: o.champion }))
+    .filter((r) => r.wins > 0)
+    .sort((a, b) => b.wins - a.wins);
+  const max = rows[0]?.wins ?? 1;
+  return `
+  <section class="panel mt-6">
+    <header class="panel-head"><div><h3 class="panel-title">Campeones en las simulaciones</h3>
+    <p class="panel-sub">De ${mc.iterations.toLocaleString()} torneos simulados, cuántas veces ganó el título cada equipo.</p></div></header>
+    <div class="table-wrap">
+      <table class="rank-table">
+        <thead><tr><th class="text-left">#</th><th class="text-left">Equipo</th><th>Veces campeón</th><th>%</th><th class="text-left w-1/3"></th></tr></thead>
+        <tbody>${rows
+          .map(
+            (r, i) => `<tr>
+            <td class="text-left text-hex-500 tabular-nums">${i + 1}</td>
+            <td class="text-left"><div class="flex items-center gap-2">${crest(r.team, 'w-6 h-6 text-[8px]')}<span class="truncate">${esc(team(r.team)?.name)}</span></div></td>
+            <td class="font-display text-gold-300 tabular-nums">${r.wins.toLocaleString()}</td>
+            <td class="tabular-nums">${pct(r.p)}</td>
+            <td class="text-left"><div class="prob-bar big"><span style="width:${((r.wins / max) * 100).toFixed(1)}%"></span></div></td></tr>`,
+          )
+          .join('')}
+        </tbody>
+        <tfoot><tr><td></td><td class="text-left text-hex-500">Total</td><td class="tabular-nums text-gold-100">${rows.reduce((a, r) => a + r.wins, 0).toLocaleString()}</td><td></td><td></td></tr></tfoot>
+      </table>
+    </div>
   </section>`;
 }
