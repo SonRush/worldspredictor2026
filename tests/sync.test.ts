@@ -77,4 +77,31 @@ describe('sync merge', () => {
     const { tournament: t } = mergeUpstream(tournament, rows);
     expect(t.knockout.matches.find((m: { id: string }) => m.id === 'SF1')).toMatchObject({ teamA: 'GEN', teamB: 'BLG' });
   });
+
+  it('keeps repeated Play-In pairings in separate bracket slots (double elimination)', () => {
+    const f = (o: Record<string, unknown>) => up({ stage: 'PLAY_IN', status: 'FINISHED', bestOf: 5, ...o });
+    // Real order of the 2026 Play-In: R1, R2, lower final and final repeat MVK-FUR / KC-MVK.
+    const rows = [
+      f({ teamA: 'KC', teamB: 'C9', scoreA: 3, scoreB: 2, winner: 'KC', startTime: '2026-10-15T18:00:00Z' }),
+      f({ teamA: 'MVK', teamB: 'FUR', scoreA: 3, scoreB: 0, winner: 'MVK', startTime: '2026-10-15T23:00:00Z' }),
+      f({ teamA: 'KC', teamB: 'MVK', scoreA: 3, scoreB: 0, winner: 'KC', startTime: '2026-10-16T18:00:00Z' }),
+      f({ teamA: 'FUR', teamB: 'C9', scoreA: 3, scoreB: 1, winner: 'FUR', startTime: '2026-10-16T23:00:00Z' }),
+      f({ teamA: 'MVK', teamB: 'FUR', scoreA: 3, scoreB: 1, winner: 'MVK', startTime: '2026-10-17T18:00:00Z' }),
+      f({ teamA: 'KC', teamB: 'MVK', scoreA: 3, scoreB: 0, winner: 'KC', startTime: '2026-10-18T18:00:00Z' }),
+    ];
+    // The same series also arrives from a second source with a slightly different time.
+    const dup = rows.map((r) => ({ ...r, source: 'other', startTime: String(r.startTime).replace('T18:', 'T19:').replace('T23:', 'T22:') }));
+    for (const input of [rows, [...rows, ...dup]]) {
+      const { tournament: t, skipped } = mergeUpstream(tournament, input);
+      const by = Object.fromEntries(t.playIn.matches.map((m: { id: string }) => [m.id, m]));
+      expect(by['PI-A']).toMatchObject({ teamA: 'FUR', teamB: 'MVK', winner: 'MVK', scoreA: 0, scoreB: 3 });
+      expect(by['PI-C']).toMatchObject({ winner: 'KC', status: 'FINISHED' });
+      expect(by['PI-E']).toMatchObject({ teamA: 'MVK', teamB: 'FUR', winner: 'MVK', status: 'FINISHED' });
+      expect(by['PI-F']).toMatchObject({ teamA: 'KC', teamB: 'MVK', winner: 'KC', status: 'FINISHED' });
+      expect(skipped).toEqual([]);
+      expect(validateData(teams, t)).toEqual([]);
+      // Idempotent: a second sync with the same data changes nothing.
+      expect(mergeUpstream(t, input).changes).toEqual([]);
+    }
+  });
 });

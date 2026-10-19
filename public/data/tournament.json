@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-10-19T01:02:30Z",
+  "lastUpdated": "2026-10-19T03:04:02Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -40,10 +40,10 @@
         "teamB": "MVK",
         "bestOf": 5,
         "status": "FINISHED",
-        "scoreA": 1,
+        "scoreA": 0,
         "scoreB": 3,
         "winner": "MVK",
-        "startTime": "2026-10-17T18:00:00Z",
+        "startTime": "2026-10-15T23:00:00Z",
         "externalId": "lp:2026 Season World Championship/Play-In_Round 1_2"
       },
       {
@@ -73,7 +73,7 @@
         "scoreA": 0,
         "scoreB": 3,
         "winner": "KC",
-        "startTime": "2026-10-18T18:00:00Z",
+        "startTime": "2026-10-16T18:00:00Z",
         "externalId": "lp:2026 Season World Championship/Play-In_Round 2_1"
       },
       {
@@ -96,14 +96,14 @@
         "stage": "PLAY_IN",
         "round": "Round 3",
         "label": "Lower Bracket Final",
-        "teamA": null,
-        "teamB": null,
+        "teamA": "MVK",
+        "teamB": "FUR",
         "bestOf": 5,
-        "status": "SCHEDULED",
-        "scoreA": 0,
-        "scoreB": 0,
-        "winner": null,
-        "startTime": "2026-10-18T20:00:00Z",
+        "status": "FINISHED",
+        "scoreA": 3,
+        "scoreB": 1,
+        "winner": "MVK",
+        "startTime": "2026-10-17T18:00:00Z",
         "externalId": null
       },
       {
@@ -111,14 +111,14 @@
         "stage": "PLAY_IN",
         "round": "Round 4",
         "label": "Qualification Final",
-        "teamA": null,
-        "teamB": null,
+        "teamA": "KC",
+        "teamB": "MVK",
         "bestOf": 5,
-        "status": "SCHEDULED",
-        "scoreA": 0,
+        "status": "FINISHED",
+        "scoreA": 3,
         "scoreB": 0,
-        "winner": null,
-        "startTime": "2026-10-18T23:00:00Z",
+        "winner": "KC",
+        "startTime": "2026-10-18T18:00:00Z",
         "externalId": null
       }
     ]

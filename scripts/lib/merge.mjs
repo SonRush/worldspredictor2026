@@ -146,19 +146,45 @@ export function mergeUpstream(tournament, upstream) {
   const changes = [];
   const skipped = [];
   const ordered = upstream.slice().sort((x, y) => (x.startTime ?? '').localeCompare(y.startTime ?? ''));
+  // Two sources often disagree by minutes/hours on the start time of the same series. Keep the
+  // first one seen so the stored time is stable instead of flip-flopping (and committing) every sync.
+  const SAME_SERIES_MS = 8 * 3600 * 1000;
+  const sameUpPair = (a, b) => (a.teamA === b.teamA && a.teamB === b.teamB) || (a.teamA === b.teamB && a.teamB === b.teamA);
+  const seen = [];
+  for (let i = 0; i < ordered.length; i++) {
+    const u = ordered[i];
+    const twin = seen.find(
+      (x) => x.stage === u.stage && sameUpPair(x, u) && (!x.startTime || !u.startTime || Math.abs(Date.parse(x.startTime) - Date.parse(u.startTime)) <= SAME_SERIES_MS),
+    );
+    if (twin) ordered[i] = { ...u, startTime: twin.startTime ?? u.startTime };
+    else seen.push(u);
+  }
   const log = (m, diff, up) => changes.push(`${m.id} ${m.teamA ?? '?'}-${m.teamB ?? '?'}: ${diff.join(',')} (${up.source})`);
 
   // ---- Play-In: bracket slots are derived, so iterate until stable.
+  // Double elimination repeats pairings (e.g. R1 and the lower final, R2 and the final), so the
+  // pair alone is NOT a key. Upstream is processed chronologically and every series claims the
+  // first still-free slot of the bracket that fits its pair; the same series reported by two
+  // sources (same pair, close in time) reuses the slot it already claimed.
   const pi = ordered.filter((u) => u.stage === 'PLAY_IN');
   const pending = new Set(pi);
+  const claims = new Map(); // slot id -> upstream record that claimed it
+  const sameSeries = (a, b) => {
+    if (!sameUpPair(a, b)) return false;
+    if (!a.startTime || !b.startTime) return true;
+    return Math.abs(Date.parse(a.startTime) - Date.parse(b.startTime)) <= SAME_SERIES_MS;
+  };
   for (let pass = 0; pass < 6 && pending.size; pass++) {
     for (const up of [...pending]) {
       const derived = derivePlayInTeams(t.playIn.matches);
+      const fits = derived.filter(({ a, b }) => a && b && ((a === up.teamA && b === up.teamB) || (a === up.teamB && b === up.teamA)));
       const hit =
         derived.find(({ m }) => up.externalId && m.externalId === up.externalId) ??
-        derived.find(({ a, b }) => a && b && ((a === up.teamA && b === up.teamB) || (a === up.teamB && b === up.teamA)));
+        fits.find(({ m }) => claims.has(m.id) && sameSeries(claims.get(m.id), up)) ??
+        fits.find(({ m }) => !claims.has(m.id));
       if (!hit) continue;
       pending.delete(up);
+      claims.set(hit.m.id, claims.get(hit.m.id) ?? up);
       const { m, a, b } = hit;
       m.teamA ??= a;
       m.teamB ??= b;
