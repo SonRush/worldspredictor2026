@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-10-31T02:13:21Z",
+  "lastUpdated": "2026-10-31T20:26:31Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -606,10 +606,10 @@
             "teamA": "KC",
             "teamB": "MKOI",
             "bestOf": 3,
-            "status": "SCHEDULED",
-            "scoreA": 0,
+            "status": "FINISHED",
+            "scoreA": 2,
             "scoreB": 0,
-            "winner": null,
+            "winner": "KC",
             "startTime": "2026-10-31T17:00:00Z",
             "externalId": "lp:2026 Season World Championship/Main Event_Round 5_1"
           },
@@ -621,8 +621,8 @@
             "teamA": "LOS",
             "teamB": "LYON",
             "bestOf": 3,
-            "status": "SCHEDULED",
-            "scoreA": 0,
+            "status": "IN_PROGRESS",
+            "scoreA": 1,
             "scoreB": 0,
             "winner": null,
             "startTime": "2026-10-31T20:00:00Z",
