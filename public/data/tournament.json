@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-11-01T02:04:29Z",
+  "lastUpdated": "2026-11-03T22:10:15Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -657,12 +657,12 @@
         "teamA": "TES",
         "teamB": "IG",
         "bestOf": 5,
-        "status": "SCHEDULED",
+        "status": "IN_PROGRESS",
         "scoreA": 0,
         "scoreB": 0,
         "winner": null,
         "startTime": "2026-11-03T22:00:00Z",
-        "externalId": null
+        "externalId": "lp:2026 Season World Championship/Main Event_Quarterfinals_1"
       },
       {
         "id": "QF2",
@@ -692,7 +692,7 @@
         "scoreB": 0,
         "winner": null,
         "startTime": "2026-11-05T22:00:00Z",
-        "externalId": null
+        "externalId": "lp:2026 Season World Championship/Main Event_Quarterfinals_3"
       },
       {
         "id": "QF4",
@@ -707,7 +707,7 @@
         "scoreB": 0,
         "winner": null,
         "startTime": "2026-11-06T22:00:00Z",
-        "externalId": null
+        "externalId": "lp:2026 Season World Championship/Main Event_Quarterfinals_4"
       },
       {
         "id": "SF1",
