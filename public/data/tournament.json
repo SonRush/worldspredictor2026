@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-11-05T02:59:32Z",
+  "lastUpdated": "2026-11-05T08:40:50Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -722,7 +722,7 @@
         "scoreB": 0,
         "winner": null,
         "startTime": "2026-11-07T22:00:00Z",
-        "externalId": null
+        "externalId": "lp:2026 Season World Championship/Main Event_Semifinals_1"
       },
       {
         "id": "SF2",
