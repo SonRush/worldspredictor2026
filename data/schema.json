@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://worldspredictor2026/data/schema.json",
+  "title": "Worlds 2026 Predictor data schema",
+  "description": "Structural validation for teams.json and tournament.json. Use #/$defs/teamsFile and #/$defs/tournamentFile.",
+  "$defs": {
+    "teamId": { "type": "string", "pattern": "^[A-Z0-9]{2,6}$" },
+    "nullableTeamId": { "anyOf": [{ "$ref": "#/$defs/teamId" }, { "type": "null" }] },
+    "isoDateTime": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?Z$" },
+    "region": { "enum": ["LCK", "LPL", "LEC", "LCS", "CBLOL", "LCP", "LTA"] },
+    "status": { "enum": ["SCHEDULED", "IN_PROGRESS", "FINISHED"] },
+    "nullableNumber": { "type": ["number", "null"] },
+    "team": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "code", "name", "region", "regionSeed", "stageEntry", "swissTier", "baseElo", "roster", "aliases", "metrics"],
+      "properties": {
+        "id": { "$ref": "#/$defs/teamId" },
+        "code": { "type": "string", "minLength": 1, "maxLength": 6 },
+        "name": { "type": "string", "minLength": 1 },
+        "region": { "$ref": "#/$defs/region" },
+        "regionSeed": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "stageEntry": { "enum": ["PLAY_IN", "SWISS"] },
+        "swissTier": { "type": ["integer", "null"], "minimum": 1, "maximum": 4 },
+        "baseElo": { "type": "number", "minimum": 1000, "maximum": 2500 },
+        "roster": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["role", "player"],
+            "properties": {
+              "role": { "enum": ["TOP", "JUNGLE", "MID", "BOT", "SUPPORT", "SUB", "COACH"] },
+              "player": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "aliases": { "type": "array", "items": { "type": "string" } },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "worldsAppearances": { "$ref": "#/$defs/nullableNumber" },
+            "splitWinRate": { "$ref": "#/$defs/nullableNumber" },
+            "gdAt15": { "$ref": "#/$defs/nullableNumber" },
+            "kda": { "$ref": "#/$defs/nullableNumber" }
+          }
+        }
+      }
+    },
+    "match": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "stage", "round", "teamA", "teamB", "bestOf", "status", "scoreA", "scoreB", "winner", "startTime"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "stage": { "enum": ["PLAY_IN", "SWISS", "KNOCKOUT"] },
+        "round": { "type": ["integer", "string"] },
+        "label": { "type": ["string", "null"] },
+        "teamA": { "$ref": "#/$defs/nullableTeamId" },
+        "teamB": { "$ref": "#/$defs/nullableTeamId" },
+        "bestOf": { "enum": [1, 3, 5] },
+        "status": { "$ref": "#/$defs/status" },
+        "scoreA": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "scoreB": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "winner": { "$ref": "#/$defs/nullableTeamId" },
+        "startTime": { "anyOf": [{ "$ref": "#/$defs/isoDateTime" }, { "type": "null" }] },
+        "externalId": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "FINISHED" } } },
+          "then": { "properties": { "winner": { "$ref": "#/$defs/teamId" }, "teamA": { "$ref": "#/$defs/teamId" }, "teamB": { "$ref": "#/$defs/teamId" } } }
+        }
+      ]
+    },
+    "teamsFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "lastUpdated", "teams"],
+      "properties": {
+        "$schema": { "type": "string" },
+        "schemaVersion": { "const": 1 },
+        "lastUpdated": { "$ref": "#/$defs/isoDateTime" },
+        "teams": { "type": "array", "minItems": 16, "items": { "$ref": "#/$defs/team" } }
+      }
+    },
+    "tournamentFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "lastUpdated", "event", "playIn", "swiss", "knockout"],
+      "properties": {
+        "$schema": { "type": "string" },
+        "schemaVersion": { "const": 1 },
+        "lastUpdated": { "$ref": "#/$defs/isoDateTime" },
+        "event": {
+          "type": "object",
+          "required": ["name", "shortName", "stages"],
+          "properties": {
+            "name": { "type": "string" },
+            "shortName": { "type": "string" },
+            "stages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "name", "start", "end"],
+                "properties": {
+                  "id": { "enum": ["PLAY_IN", "SWISS", "KNOCKOUT"] },
+                  "name": { "type": "string" },
+                  "start": { "type": "string" },
+                  "end": { "type": "string" },
+                  "venue": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "playIn": {
+          "type": "object",
+          "required": ["matches"],
+          "properties": { "matches": { "type": "array", "minItems": 6, "maxItems": 6, "items": { "$ref": "#/$defs/match" } } }
+        },
+        "swiss": {
+          "type": "object",
+          "required": ["rounds"],
+          "properties": {
+            "rounds": {
+              "type": "array",
+              "minItems": 5,
+              "maxItems": 5,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["round", "matches"],
+                "properties": {
+                  "round": { "type": "integer", "minimum": 1, "maximum": 5 },
+                  "matches": { "type": "array", "maxItems": 8, "items": { "$ref": "#/$defs/match" } }
+                }
+              }
+            }
+          }
+        },
+        "knockout": {
+          "type": "object",
+          "required": ["matches"],
+          "properties": { "matches": { "type": "array", "minItems": 7, "maxItems": 7, "items": { "$ref": "#/$defs/match" } } }
+        }
+      }
+    }
+  }
+}
