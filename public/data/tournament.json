@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "schemaVersion": 1,
-  "lastUpdated": "2026-11-12T22:30:58Z",
+  "lastUpdated": "2026-11-14T21:02:13Z",
   "event": {
     "name": "League of Legends World Championship 2026",
     "shortName": "Worlds 2026",
@@ -747,8 +747,8 @@
         "teamA": "GEN",
         "teamB": "BLG",
         "bestOf": 5,
-        "status": "SCHEDULED",
-        "scoreA": 0,
+        "status": "IN_PROGRESS",
+        "scoreA": 1,
         "scoreB": 0,
         "winner": null,
         "startTime": "2026-11-14T19:00:00Z",
