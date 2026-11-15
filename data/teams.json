@@ -1,0 +1,809 @@
+{
+  "$schema": "./schema.json",
+  "schemaVersion": 1,
+  "lastUpdated": "2026-10-12T00:00:00Z",
+  "teams": [
+    {
+      "id": "GEN",
+      "code": "GEN",
+      "name": "Gen.G",
+      "region": "LCK",
+      "regionSeed": 1,
+      "stageEntry": "SWISS",
+      "swissTier": 1,
+      "baseElo": 1765,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Kiin"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Canyon"
+        },
+        {
+          "role": "MID",
+          "player": "Chovy"
+        },
+        {
+          "role": "BOT",
+          "player": "Ruler"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Duro"
+        }
+      ],
+      "aliases": [
+        "Gen.G",
+        "Gen.G Esports"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "HLE",
+      "code": "HLE",
+      "name": "Hanwha Life Esports",
+      "region": "LCK",
+      "regionSeed": 2,
+      "stageEntry": "SWISS",
+      "swissTier": 2,
+      "baseElo": 1725,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Zeus"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Kanavi"
+        },
+        {
+          "role": "MID",
+          "player": "Zeka"
+        },
+        {
+          "role": "BOT",
+          "player": "Gumayusi"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Delight"
+        }
+      ],
+      "aliases": [
+        "Hanwha Life Esports",
+        "Hanwha Life"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "T1",
+      "code": "T1",
+      "name": "T1",
+      "region": "LCK",
+      "regionSeed": 3,
+      "stageEntry": "SWISS",
+      "swissTier": 3,
+      "baseElo": 1720,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Doran"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Oner"
+        },
+        {
+          "role": "MID",
+          "player": "Faker"
+        },
+        {
+          "role": "BOT",
+          "player": "Peyz"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Keria"
+        }
+      ],
+      "aliases": [
+        "T1",
+        "SK Telecom T1"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "DK",
+      "code": "DK",
+      "name": "Dplus KIA",
+      "region": "LCK",
+      "regionSeed": 4,
+      "stageEntry": "SWISS",
+      "swissTier": 4,
+      "baseElo": 1665,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Siwoo"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Lucid"
+        },
+        {
+          "role": "MID",
+          "player": "ShowMaker"
+        },
+        {
+          "role": "BOT",
+          "player": "Smash"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Career"
+        }
+      ],
+      "aliases": [
+        "Dplus KIA",
+        "Dplus Kia",
+        "DK"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "AL",
+      "code": "AL",
+      "name": "Anyone's Legend",
+      "region": "LPL",
+      "regionSeed": 1,
+      "stageEntry": "SWISS",
+      "swissTier": 1,
+      "baseElo": 1710,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Breathe"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Tarzan"
+        },
+        {
+          "role": "MID",
+          "player": "Shanks"
+        },
+        {
+          "role": "BOT",
+          "player": "hope"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Kael"
+        }
+      ],
+      "aliases": [
+        "Anyone's Legend",
+        "Anyones Legend"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "BLG",
+      "code": "BLG",
+      "name": "Bilibili Gaming",
+      "region": "LPL",
+      "regionSeed": 2,
+      "stageEntry": "SWISS",
+      "swissTier": 2,
+      "baseElo": 1715,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Bin"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "XUN"
+        },
+        {
+          "role": "MID",
+          "player": "Knight"
+        },
+        {
+          "role": "BOT",
+          "player": "Viper"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "ON"
+        }
+      ],
+      "aliases": [
+        "Bilibili Gaming",
+        "BLG"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "TES",
+      "code": "TES",
+      "name": "Top Esports",
+      "region": "LPL",
+      "regionSeed": 3,
+      "stageEntry": "SWISS",
+      "swissTier": 3,
+      "baseElo": 1670,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "369"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Tian"
+        },
+        {
+          "role": "MID",
+          "player": "Creme"
+        },
+        {
+          "role": "BOT",
+          "player": "JackeyLove"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Zhuo"
+        }
+      ],
+      "aliases": [
+        "Top Esports",
+        "TOP Esports"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "IG",
+      "code": "IG",
+      "name": "Invictus Gaming",
+      "region": "LPL",
+      "regionSeed": 4,
+      "stageEntry": "SWISS",
+      "swissTier": 4,
+      "baseElo": 1645,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "TheShy"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Wei"
+        },
+        {
+          "role": "MID",
+          "player": "Rookie"
+        },
+        {
+          "role": "BOT",
+          "player": "JiaQi"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "meiko"
+        }
+      ],
+      "aliases": [
+        "Invictus Gaming",
+        "Shanghai Invictus Gaming",
+        "Shanghai Invictus Gaming Meituan"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "G2",
+      "code": "G2",
+      "name": "G2 Esports",
+      "region": "LEC",
+      "regionSeed": 1,
+      "stageEntry": "SWISS",
+      "swissTier": 1,
+      "baseElo": 1645,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "BrokenBlade"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "SkewMond"
+        },
+        {
+          "role": "MID",
+          "player": "Caps"
+        },
+        {
+          "role": "BOT",
+          "player": "Hans Sama"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Labrov"
+        }
+      ],
+      "aliases": [
+        "G2 Esports",
+        "G2"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "MKOI",
+      "code": "MKOI",
+      "name": "Movistar KOI",
+      "region": "LEC",
+      "regionSeed": 2,
+      "stageEntry": "SWISS",
+      "swissTier": 3,
+      "baseElo": 1585,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Myrwn"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Elyoya"
+        },
+        {
+          "role": "MID",
+          "player": "jojopyun"
+        },
+        {
+          "role": "BOT",
+          "player": "Supa"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Alvaro"
+        }
+      ],
+      "aliases": [
+        "Movistar KOI",
+        "KOI"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "KC",
+      "code": "KC",
+      "name": "Karmine Corp",
+      "region": "LEC",
+      "regionSeed": 3,
+      "stageEntry": "PLAY_IN",
+      "swissTier": null,
+      "baseElo": 1590,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Canna"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Yike"
+        },
+        {
+          "role": "MID",
+          "player": "Kyeahoo"
+        },
+        {
+          "role": "BOT",
+          "player": "Caliste"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Busio"
+        }
+      ],
+      "aliases": [
+        "Karmine Corp",
+        "KC"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "TL",
+      "code": "TL",
+      "name": "Team Liquid Alienware",
+      "region": "LCS",
+      "regionSeed": 1,
+      "stageEntry": "SWISS",
+      "swissTier": 1,
+      "baseElo": 1565,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Morgan"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Josedeodo"
+        },
+        {
+          "role": "MID",
+          "player": "Quid"
+        },
+        {
+          "role": "BOT",
+          "player": "Yeon"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "CoreJJ"
+        }
+      ],
+      "aliases": [
+        "Team Liquid Alienware",
+        "Team Liquid",
+        "TLAW"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "LYON",
+      "code": "LYON",
+      "name": "LYON",
+      "region": "LCS",
+      "regionSeed": 2,
+      "stageEntry": "SWISS",
+      "swissTier": 3,
+      "baseElo": 1550,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Dhokla"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Inspired"
+        },
+        {
+          "role": "MID",
+          "player": "Saint"
+        },
+        {
+          "role": "BOT",
+          "player": "Berserker"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Isles"
+        }
+      ],
+      "aliases": [
+        "LYON",
+        "Lyon"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "C9",
+      "code": "C9",
+      "name": "Cloud9 KIA",
+      "region": "LCS",
+      "regionSeed": 3,
+      "stageEntry": "PLAY_IN",
+      "swissTier": null,
+      "baseElo": 1535,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Thanatos"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Blaber"
+        },
+        {
+          "role": "MID",
+          "player": "Loki"
+        },
+        {
+          "role": "BOT",
+          "player": "Tactical"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Vulcan"
+        }
+      ],
+      "aliases": [
+        "Cloud9 KIA",
+        "Cloud9 Kia",
+        "Cloud9"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "TSW",
+      "code": "TSW",
+      "name": "Team Secret Whales",
+      "region": "LCP",
+      "regionSeed": 1,
+      "stageEntry": "SWISS",
+      "swissTier": 2,
+      "baseElo": 1530,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Pun"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Hizto"
+        },
+        {
+          "role": "MID",
+          "player": "Dire"
+        },
+        {
+          "role": "BOT",
+          "player": "Eddie"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Bie"
+        }
+      ],
+      "aliases": [
+        "Team Secret Whales",
+        "Secret Whales"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "CFO",
+      "code": "CFO",
+      "name": "CTBC Flying Oyster",
+      "region": "LCP",
+      "regionSeed": 2,
+      "stageEntry": "SWISS",
+      "swissTier": 4,
+      "baseElo": 1540,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Rest"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Shad0w"
+        },
+        {
+          "role": "MID",
+          "player": "Pout"
+        },
+        {
+          "role": "BOT",
+          "player": "Doggo"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Kino"
+        }
+      ],
+      "aliases": [
+        "CTBC Flying Oyster",
+        "Flying Oyster"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "MVK",
+      "code": "MVK",
+      "name": "MVK Esports",
+      "region": "LCP",
+      "regionSeed": 3,
+      "stageEntry": "PLAY_IN",
+      "swissTier": null,
+      "baseElo": 1485,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Kratos"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Gury"
+        },
+        {
+          "role": "MID",
+          "player": "Chika"
+        },
+        {
+          "role": "BOT",
+          "player": "Harky"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "SiuLoong"
+        }
+      ],
+      "aliases": [
+        "MVK Esports",
+        "MVK"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "LOS",
+      "code": "LOS",
+      "name": "LOS",
+      "region": "CBLOL",
+      "regionSeed": 1,
+      "stageEntry": "SWISS",
+      "swissTier": 2,
+      "baseElo": 1485,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Zest"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Curse"
+        },
+        {
+          "role": "MID",
+          "player": "Feisty"
+        },
+        {
+          "role": "BOT",
+          "player": "Duduhh"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Ackerman"
+        }
+      ],
+      "aliases": [
+        "LOS",
+        "Los Grandes"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    },
+    {
+      "id": "FUR",
+      "code": "FUR",
+      "name": "FURIA",
+      "region": "CBLOL",
+      "regionSeed": 2,
+      "stageEntry": "PLAY_IN",
+      "swissTier": null,
+      "baseElo": 1475,
+      "roster": [
+        {
+          "role": "TOP",
+          "player": "Guigo"
+        },
+        {
+          "role": "JUNGLE",
+          "player": "Tatu"
+        },
+        {
+          "role": "MID",
+          "player": "Tutsz"
+        },
+        {
+          "role": "BOT",
+          "player": "Ayu"
+        },
+        {
+          "role": "SUPPORT",
+          "player": "Jojo"
+        }
+      ],
+      "aliases": [
+        "FURIA",
+        "FURIA Esports"
+      ],
+      "metrics": {
+        "worldsAppearances": null,
+        "splitWinRate": null,
+        "gdAt15": null,
+        "kda": null
+      }
+    }
+  ]
+}
